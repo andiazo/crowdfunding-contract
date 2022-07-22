@@ -12,8 +12,8 @@ contract CrowdFunding {
     uint public fundraisingGoal;
     
     // eventos
-    event eventProjectStateChanged(string _id, bool _isActive);
-    event eventProjectFunded(string _id, uint _value);
+    event eventProjectStateChanged(uint256 _id, bool _isActive);
+    event eventProjectFunded(uint256 _id, uint _value);
 
     constructor(uint256 _id, string memory _name, string memory _desc, uint _fundraisingGoal) {
         id = _id;
@@ -39,11 +39,11 @@ contract CrowdFunding {
     function fundProject() public onlyNotAuthor payable  {
         author.transfer(msg.value);
         funds += msg.value;
-        emit eventProjectFunded(id, msg.value)
+        emit eventProjectFunded(id, msg.value);
     }   
 
     function changeProjectState(bool _isActive) public onlyAuthor {
         isActive = _isActive;
-        emit eventProjectStateChanged(id, _isActive)
+        emit eventProjectStateChanged(id, _isActive);
     }
 }
